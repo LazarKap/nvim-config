@@ -1,7 +1,5 @@
 # nvim config
 
-## Install on a new machine
-
 **1. Install dependencies**
 ```bash
 brew install neovim ripgrep fd node
