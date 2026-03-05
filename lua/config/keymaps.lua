@@ -14,3 +14,7 @@ vim.keymap.set("n", "<S-Tab>", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
 
 -- Save with Ctrl+s
 vim.keymap.set({ "n", "i" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
+
+-- Copy file paths to clipboard
+vim.keymap.set("n", "<leader>cp", ':let @+ = expand("%:.")<cr>', { desc = "Copy relative path from cwd" })
+vim.keymap.set("n", "<leader>cP", ':let @+ = expand("%:p")<cr>', { desc = "Copy absolute path" })
