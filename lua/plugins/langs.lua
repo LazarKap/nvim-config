@@ -114,14 +114,23 @@ return {
 
         -- PHP LSP
         intelephense = {
+          -- Root on composer.json only: in a monorepo, .git resolves to the repo
+          -- root and Intelephense silently stops at its file cap.
+          root_dir = function(bufnr, cb)
+            local path = vim.fs.root(bufnr, { "composer.json" })
+            if path then cb(path) end
+          end,
           settings = {
             intelephense = {
               files = {
                 maxSize = 5000000,
                 associations = { "*.php", "*.phtml" },
+                -- vendor/ must stay indexed; the framework lives there and
+                -- excluding it is why Eloquent's static methods read as undefined.
                 exclude = {
                   "**/node_modules/**",
-                  "**/vendor/**",
+                  "**/vendor/**/tests/**",
+                  "**/vendor/**/Tests/**",
                   "**/storage/**",
                   "**/bootstrap/cache/**",
                   "**/public/storage/**"
